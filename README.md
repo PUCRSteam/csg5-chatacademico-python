@@ -31,7 +31,13 @@ touch .env
 ##### Set up environment variables as shown below
 
 ```
-ENV
+FLASK_DEBUG=1
+DB_ENGINE=
+DB_HOST=
+DB_USERNAME=
+DB_PASSWORD=
+DB_PORT=
+DB_NAME=
 ```
 
 ## 🚀 Run
