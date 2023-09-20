@@ -40,12 +40,20 @@ DB_PORT=
 DB_NAME=
 ```
 
+## Setup postgres database
+
+```bash
+docker pull postgress
+docker run -p 5432:5432 -v /tmp/database:/var/lib/postgresql/data -e POSTGRES_PASSWORD=1234 -d postgres
+```
+
 ## 🚀 Run
 
 After installing process you just need to run in develop mode
 
 ```bash
-flask run
+poetry shell # Access poetry's terminal
+gunicorn --worker-class eventlet -w 1 "app:create_app()"
 ```
 
 # ☕
