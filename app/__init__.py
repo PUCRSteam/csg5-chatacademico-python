@@ -1,4 +1,7 @@
 from flask import Flask
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from app.config import init_config
 from app.ext import init_extensions
@@ -6,7 +9,7 @@ from app.ext import init_extensions
 
 def create_app() -> Flask:
 	app = Flask(__name__)
-	
+
 	init_config(app)
 
 	init_extensions(app)
