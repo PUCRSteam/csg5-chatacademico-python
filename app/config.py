@@ -1,9 +1,7 @@
 import os
-from os.path import join, dirname
-from dotenv import load_dotenv
+
 from flask import Flask
 
-load_dotenv(join(dirname(__file__), '.env'))
 
 def getenv(name):
     try:
@@ -22,10 +20,7 @@ class Config:
 	DB_NAME = getenv('DB_NAME')
 
 	SQLALCHEMY_DATABASE_URI = f'{DB_ENGINE}://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
-
-
-class LocalConfig():
-    SQLALCHEMY_DATABASE_URI = f'sqlite:///database.db'
+	SECRET_KEY = 'Ch4v3Sup3rS3c3t4*12'
 
 
 class DevelopmentConfig(Config):
@@ -34,6 +29,6 @@ class DevelopmentConfig(Config):
 
 def init_config(app: Flask):
     #! TEMP
-	config = LocalConfig()
+	config = DevelopmentConfig()
 	app.config.from_object(config)
       
