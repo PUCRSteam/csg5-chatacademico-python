@@ -1,28 +1,45 @@
-from flask_socketio import emit, join_room, leave_room
+from flask import request, session
+from flask_socketio import emit, join_room, leave_room, ConnectionRefusedError
 
+from app.apis.chat.service import ChatService
 from app.apis.message.service import MessageService
 from app.ext.socketio import socketio
+from app.ext.auth import auth_service
+from app.errors.client.base import UnauthorizedException
+
+@socketio.on('connect')
+def connect():
+    token = request.args.get('token')
+    if not token:
+        return False
+
+    try:
+        data = auth_service.authenticate(token)
+    except UnauthorizedException:
+        return False
+
+    session['current_user_id'] = data.get('user_id')
 
 @socketio.on('join')
 def on_join(data):
-    token = data.get('token')
     room = data.get('room')
+    user_id = session['current_user_id']
 
     if room is not None:
-        #TODO verify if user has permisson to access room
-        ...
-
+        try:
+            ChatService.get(user_id, room)
+        except Exception:
+            return False
+        
+        session['room'] = room
         join_room(room)
-        emit('status', { 'message': 'joined.' }, room=room)
+        emit('status', { 'message': 'joined' }, room=room)
 
 @socketio.on('message')
 def on_message(data):
-    room = data.get('room')
+    room = session['room']
+    sender_user_id = session['current_user_id']
     
-    token = data.get('token')
-    # TODO extract user_id from token
-    sender_user_id = 'extract from token'
-
     message = data.get('message')
     MessageService.create(
         room,
