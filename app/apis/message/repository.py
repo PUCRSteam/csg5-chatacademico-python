@@ -6,6 +6,6 @@ class MessageRepository:
 	
 	@staticmethod
 	def create(message: Message) -> Message:
-		db.session.create(Message)
+		db.session.add(message)
 		db.session.commit()
 		return message
