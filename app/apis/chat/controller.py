@@ -24,7 +24,7 @@ class ChatCreateController(Resource):
 @ns.route('')
 class ChatController(Resource):
 
-	@ns.marshal_with(ChatDto.chat_list_schema)
+	@ns.marshal_with(ChatDto.wrapped_chat_list_schema)
 	@token_required
 	def get(self):
 		"""

@@ -32,11 +32,19 @@ class ChatDto:
 		}
 	)
 
-	#TODO do not join messages here
 	chat_list_schema = api.model(
 		'chat_list_schema',
 		{
-			'chats': fields.List(fields.Nested(chat_schema))
+			'id': fields.Integer(),
+			'user1_id': fields.Integer(),
+			'user2_id': fields.Integer()
+		}
+	)
+
+	wrapped_chat_list_schema = api.model(
+		'wrapped_chat_list_schema',
+		{
+			'data': fields.List(fields.Nested(chat_list_schema))
 		}
 	)
 

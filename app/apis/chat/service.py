@@ -13,7 +13,7 @@ class ChatService:
 
 	@staticmethod
 	def get_all(user_id: int) -> List[Chat]:
-		return ChatRepository.get_all(user_id)
+		return {'data': ChatRepository.get_all(user_id)}
 
 	@staticmethod
 	def create(user1_id: int, user2_id: int) -> any:
