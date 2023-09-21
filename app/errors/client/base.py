@@ -12,6 +12,9 @@ class BadRequestException(ClientException):
 class UnauthorizedException(ClientException):
 	code = 401
 
+	def __init__(self, message: str=''):
+		self.message = message
+
 
 class ForbiddenException(ClientException):
 	code = 404
@@ -19,4 +22,5 @@ class ForbiddenException(ClientException):
 
 class NotFoundException(ClientException):
 	code = 404
+	message = 'Not Found.'
 	
