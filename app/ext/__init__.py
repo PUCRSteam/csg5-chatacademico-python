@@ -8,6 +8,7 @@ from app.ext.migration import migrate
 from app.ext.socketio import socketio
 from app.ext.errorhandler import api_exception_handler
 from app.ext.modifiers import make_notfound_handling
+from app.ext.auth import auth_service
 
 
 def init_extensions(app: Flask):
@@ -18,5 +19,6 @@ def init_extensions(app: Flask):
 	migrate.init_app(app, db)
 	app.register_error_handler(ApiException, api_exception_handler)
 	cors.init_app(app)
+	auth_service.init_app(app)
 	socketio.init_app(app)
 	
