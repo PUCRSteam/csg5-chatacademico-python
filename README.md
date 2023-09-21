@@ -4,7 +4,7 @@
 
 To run this project you need to install the prerequisites:
 
-[Python](https://python.org/) `v3.8`
+[Python](https://python.org/) `v3.8` <br/>
 [Poetry](https://python-poetry.org/docs/)
 
 ## ⚙️ Installation
@@ -32,12 +32,12 @@ touch .env
 
 ```
 FLASK_DEBUG=1
-DB_ENGINE=
-DB_HOST=
-DB_USERNAME=
-DB_PASSWORD=
-DB_PORT=
-DB_NAME=
+DB_ENGINE=postgresql+psycopg2
+DB_HOST=localhost
+DB_USERNAME=postgres
+DB_PASSWORD=1234
+DB_PORT=5432
+DB_NAME=postgres
 ```
 
 ## Setup postgres database
@@ -52,7 +52,7 @@ docker run -p 5432:5432 -v /tmp/database:/var/lib/postgresql/data -e POSTGRES_PA
 After installing process you just need to run in develop mode
 
 ```bash
-poetry shell # Access poetry's terminal
+poetry shell # Invoke shell in venv shell
 gunicorn --worker-class eventlet -w 1 "app:create_app()"
 ```
 
