@@ -18,7 +18,7 @@ class ChatDto:
 			'id': fields.Integer(),
 			'sender_user_id': fields.Integer(),
 			'content': fields.String(),
-			'date': fields.Date()
+			'date': fields.DateTime()
 		}
 	)
 
