@@ -1,6 +1,8 @@
 services:
   chat-api:
     build: ./
+    environment:
+      - DB_HOST=10.5.0.6
     ports:
       - '5000:5000'
     volumes:
