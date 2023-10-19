@@ -1,8 +1,9 @@
 services:
   chat-api:
     build: ./
+    image: giovanebmilani/csg5-chatacademico-python
     ports:
-      - '5000:5000'
+      - '80:5000'
     volumes:
       - './:/src/:rw'
     stdin_open: true
