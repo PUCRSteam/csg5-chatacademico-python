@@ -2,6 +2,7 @@ services:
   chat-api:
     build: ./
     image: giovanebmilani/csg5-chatacademico-python
+    env_file: .env
     environment:
       - DB_HOST=10.5.0.6
     ports:
