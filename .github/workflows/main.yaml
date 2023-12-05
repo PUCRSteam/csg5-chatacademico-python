@@ -30,10 +30,13 @@ jobs:
         with:
           terraform_version: "1.3.7"
       
-      - run: cd infra
-      - run: ls
-      - run: terraform init
-      - run: terraform apply --auto-approve
+      - name: Terraform init
+        run: terraform init
+        working-directory: ./infra
+
+      - name: Terraform apply
+        run: terraform apply --auto-approve
+        working-directory: ./infra
 
       - name: AWS Deploy push
         run: |
