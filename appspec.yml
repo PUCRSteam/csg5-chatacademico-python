@@ -1,9 +1,14 @@
 version: 0.0
 os: linux
 files:
+  - source: app
+  - source: scripts
+  - source: migrations
+  - source: nginx_config.conf
+  - source: requirements.txt
   - source: Dockerfile
   - source: docker-compose.yaml
-    destination: .
+    destination: /
 hooks:
   BeforeInstall:
     - location: scripts/install_dependencies.sh
