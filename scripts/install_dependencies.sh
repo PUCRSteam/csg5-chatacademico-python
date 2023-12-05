@@ -3,4 +3,4 @@
 set -eu
 
 sudo apt update
-sudo apt install docker docker-compose-plugin
+sudo apt install -y docker docker-compose

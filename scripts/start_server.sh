@@ -2,4 +2,5 @@
 
 set -eu
 
-docker compose up
+touch .env
+sudo docker-compose up
