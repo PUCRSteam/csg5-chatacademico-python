@@ -1,6 +1,14 @@
 
 resource "aws_vpc" "csg5_chatacademico_vpc" {
-  cidr_block = "172.16.0.0/16"
+  cidr_block = "10.0.0.0/24"
+
+  tags = {
+    Name = "csg5-chatacademico-prod"
+  }
+}
+
+resource "aws_internet_gateway" "csg5_chatacademico_igw" {
+  vpc_id = aws_vpc.csg5_chatacademico_vpc.id
 
   tags = {
     Name = "csg5-chatacademico-prod"
@@ -10,21 +18,42 @@ resource "aws_vpc" "csg5_chatacademico_vpc" {
 resource "aws_subnet" "csg5_chatacademico_public_sbn" {
   vpc_id    							  = aws_vpc.csg5_chatacademico_vpc.id
 	map_public_ip_on_launch 	= true
-  cidr_block 								= "172.16.10.0/24"
+  cidr_block 								= "10.0.0.0/25"
+  availability_zone         = "us-east-1a" 
 
   tags = {
     Name = "csg5-chatacademico-prod"
   }
 }
 
-resource "aws_network_interface" "csg5_chatacademico_eni" {
-  subnet_id   = aws_subnet.csg5_chatacademico_public_sbn.id
-  private_ips = ["172.16.10.100"]
+resource "aws_subnet" "csg5_chatacademico_public_sbn2" {
+  vpc_id    							  = aws_vpc.csg5_chatacademico_vpc.id
+	map_public_ip_on_launch 	= true
+  cidr_block 								= "10.0.0.128/25"
+  availability_zone         = "us-east-1b" 
 
   tags = {
     Name = "csg5-chatacademico-prod"
   }
 }
+
+# resource "aws_network_interface" "csg5_chatacademico_eni" {
+#   subnet_id   = aws_subnet.csg5_chatacademico_public_sbn.id
+#   private_ips = ["10.0.0.0"]
+
+#   tags = {
+#     Name = "csg5-chatacademico-prod"
+#   }
+# }
+
+# resource "aws_network_interface" "csg5_chatacademico_eni2" {
+#   subnet_id   = aws_subnet.csg5_chatacademico_public_sbn2.id
+#   private_ips = ["10.0.0.128"]
+
+#   tags = {
+#     Name = "csg5-chatacademico-prod"
+#   }
+# }
 
 resource "aws_security_group" "csg5_chatacademico_http_sg" {
   name        = "csg5-chatacademico-http-sg"

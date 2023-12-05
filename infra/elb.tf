@@ -30,6 +30,13 @@ resource "aws_launch_configuration" "csg5_chatacademico_lc" {
   }
 }
 
+resource "aws_lb_target_group" "csg5_chatacademico_tglb" {
+  name     = "csg5-chatacademico-tglb"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = aws_vpc.csg5_chatacademico_vpc.id
+}
+
 resource "aws_lb" "csg5_chatacademico_lb" {
   name = "csg5-chatacademico-lb"
 	load_balancer_type = "application"
@@ -40,7 +47,8 @@ resource "aws_lb" "csg5_chatacademico_lb" {
   ]
 
   subnets = [
-    aws_subnet.csg5_chatacademico_public_sbn.id
+    aws_subnet.csg5_chatacademico_public_sbn.id,
+    aws_subnet.csg5_chatacademico_public_sbn2.id
   ]
 
 	tags = {
@@ -57,8 +65,8 @@ resource "aws_autoscaling_group" "csg5_chatacademico_asg" {
   
   health_check_type    = "ELB"
 
-  load_balancers = [
-    "${aws_lb.csg5_chatacademico_lb.id}"
+  target_group_arns = [
+    aws_lb_target_group.csg5_chatacademico_tglb.arn
   ]
 
 	launch_configuration = "${aws_launch_configuration.csg5_chatacademico_lc.name}"
@@ -74,7 +82,8 @@ resource "aws_autoscaling_group" "csg5_chatacademico_asg" {
 	metrics_granularity = "1Minute"
 
 	vpc_zone_identifier  = [
-			aws_subnet.csg5_chatacademico_public_sbn.id
+			aws_subnet.csg5_chatacademico_public_sbn.id,
+      aws_subnet.csg5_chatacademico_public_sbn2.id
 	]
 
 	lifecycle {
