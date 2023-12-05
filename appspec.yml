@@ -1,6 +1,7 @@
 version: 0.0
 os: linux
 files:
+  - source: Dockerfile
   - source: docker-compose.yaml
     destination: .
 hooks:
