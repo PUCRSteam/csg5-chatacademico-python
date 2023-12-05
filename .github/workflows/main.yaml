@@ -39,6 +39,7 @@ jobs:
         working-directory: ./infra
 
       - name: AWS Deploy push
+        working-directory: .
         run: |
           aws deploy push \
           --application-name csg5-chatacademico-application \
@@ -47,6 +48,7 @@ jobs:
           --source .
 
       - name: AWS Create Deployment
+        working-directory: .
         run: |
           aws deploy create-deployment \
           --application-name csg5-chatacademico-application \
