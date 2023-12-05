@@ -44,7 +44,7 @@ jobs:
           aws deploy push \
           --application-name csg5-chatacademico-application \
           --ignore-hidden-files \
-          --s3-location s3://csg5-chatacademico-codedeploy-deployments/csg5-chatacademico-deployment-${{ github.sha }}.zip \
+          --s3-location s3://csg5-chatacademico-codedeploy-deployments/csg5-chatacademico-deployment.zip \
           --source .
 
       - name: AWS Create Deployment
@@ -55,4 +55,4 @@ jobs:
           --deployment-config-name CodeDeployDefault.OneAtATime \
           --deployment-group-name csg5-chatacademico-deployment-group \
           --file-exists-behavior OVERWRITE \
-          --s3-location bucket=csg5-chatacademico-codedeploy-deployments,key=csg5-chatacademico-deployment-${{ github.sha }}.zip,bundleType=zip \
+          --s3-location bucket=csg5-chatacademico-codedeploy-deployments,key=csg5-chatacademico-deployment.zip,bundleType=zip \
