@@ -37,24 +37,6 @@ resource "aws_subnet" "csg5_chatacademico_public_sbn2" {
   }
 }
 
-# resource "aws_network_interface" "csg5_chatacademico_eni" {
-#   subnet_id   = aws_subnet.csg5_chatacademico_public_sbn.id
-#   private_ips = ["10.0.0.0"]
-
-#   tags = {
-#     Name = "csg5-chatacademico-prod"
-#   }
-# }
-
-# resource "aws_network_interface" "csg5_chatacademico_eni2" {
-#   subnet_id   = aws_subnet.csg5_chatacademico_public_sbn2.id
-#   private_ips = ["10.0.0.128"]
-
-#   tags = {
-#     Name = "csg5-chatacademico-prod"
-#   }
-# }
-
 resource "aws_security_group" "csg5_chatacademico_http_sg" {
   name        = "csg5-chatacademico-http-sg"
   description = "Created by Terraform"
